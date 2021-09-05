@@ -7,7 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
 import org.zerock.bex2.entity.Memo;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 @SpringBootTest
 class MemoRepositoryTest {
@@ -96,7 +100,7 @@ class MemoRepositoryTest {
         System.out.println("first page?: " + result.isFirst()); // 시작 페이지(0) 여부
     }*/
 
-    @Test
+    /*@Test
     public void testSort() {
 
         Sort sort1 = Sort.by("mno").descending();
@@ -110,5 +114,59 @@ class MemoRepositoryTest {
         result.get().forEach(memo -> {
             System.out.println(memo);
         });
+    }*/
+
+    /*@Test
+    public void testQueryMethods() {
+        List<Memo> list = memoRepository.
+                findByMnoBetweenOrderByMnoDesc(70L,80L);
+
+        for(Memo memo : list) {
+            System.out.println(memo);
+        }
+    }*/
+
+    /*@Test
+    public void testQueryMethodWithPageable() {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("mno").descending());
+
+        Page<Memo> result = memoRepository.findByMnoBetween(10L,50L, pageable);
+
+        result.get().forEach(memo -> System.out.println(memo));
+    }*/
+
+    /*@Commit
+    @Transactional
+    @Test
+    public void testDeleteQueryMethods() {
+
+        memoRepository.deleteMemoByMnoLessThan(10L);
+    }*/
+
+    @Test
+    public void testQueryAnnotation() {
+        /*List<Memo> list = memoRepository.getListDesc();
+
+        list.forEach(memo -> System.out.println(memo));*/
+
+        //memoRepository.updateMemoText(10L, "modify10");
+
+        /*Memo memo = new Memo(10L, "modify2 10");
+        memoRepository.updateMemoText2(memo);*/
+
+        /*Pageable pageable = PageRequest.of(1, 10);
+        Page<Memo> result = memoRepository.getListWithQuery(50L, pageable);
+        result.get().forEach(memo -> System.out.println(memo));*/
+
+        /*Pageable pageable = PageRequest.of(1, 10);
+        Page<Object[]> result = memoRepository.getListWithQueryObject(40L, pageable);
+        result.get().forEach(memo -> System.out.println(memo[0] + " " + memo[1] + " " + memo[2]));*/
+
+        /*List<Object[]> list = memoRepository.getNativeResult();
+        list.forEach(memo -> System.out.println(memo[0] + " " + memo[1]));*/
+
+        List<Memo> list = memoRepository.getNativeResult2();
+        list.forEach(memo -> System.out.println(memo));
     }
 }
